@@ -1,6 +1,7 @@
 const File = require("../models/File");
 const fs = require("fs");
 const path = require("path");
+const cloudinary = require("cloudinary").v2;
 
 exports.localFileUpload = async (req, res) => {
   try {
@@ -49,6 +50,148 @@ exports.localFileUpload = async (req, res) => {
     res.status(400).json({
       success: false,
       message: "Error while uploading the file",
+    });
+  }
+};
+
+//Upload file to cloudinary
+const uploadFileToCloudinary = async (file, folder, quality) => {
+  const options = { folder };
+  console.log("temp file path", file.tempFilePath);
+  if (quality) {
+    options.quality = quality;
+  }
+  options.resource_type = "auto";
+  return await cloudinary.uploader.upload(file.tempFilePath, options);
+};
+
+//image Upload ka handler
+exports.imageUpload = async (req, res) => {
+  try {
+    //data fetch
+    const { name, tags, email } = req.body;
+    console.log(name, tags, email);
+
+    const file = req.files.imageFile;
+
+    //Validation
+    const supportedType = ["jpg", "jpeg", "png"];
+    const fileType = file.name.split(".")[1].toLowerCase();
+    if (!supportedType.includes(fileType)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "File format not supported" });
+    }
+
+    const response = await uploadFileToCloudinary(file, "CodePro");
+
+    //db me entry save karni hai
+    const fileData = await File.create({
+      name,
+      tags,
+      email,
+      imageUrl: response.secure_url,
+    });
+
+    res.json({
+      success: true,
+      message: "Image Uploaded Successfully",
+      imageUrl: response.secure_url,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: "Error while uploading the file",
+    });
+  }
+};
+
+//video upload ka handler
+exports.videoUpload = async (req, res) => {
+  try {
+    //data fetch
+    const { name, tags, email } = req.body;
+    console.log(name, tags, email);
+
+    const file = req.files.videoFile;
+    console.log("check file data", file);
+
+    //Validation
+    const supportedType = ["mp4", "mov"];
+    const fileType = file.name.split(".")[1].toLowerCase();
+    console.log("check filetype:", fileType);
+    if (!supportedType.includes(fileType)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "File format not supported" });
+    }
+
+    console.log("uploading file to cloudinary");
+    const response = await uploadFileToCloudinary(file, "CodePro"); //calling function created above
+    console.log("Check Response: ", response);
+
+    //db me entry save karni hai
+    const fileData = await File.create({
+      name,
+      tags,
+      email,
+      videoUrl: response.secure_url,
+    });
+
+    res.json({
+      success: true,
+      message: "Video uploaded successfully",
+      videoUrl: response.secure_url,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      message: "Error while uploading the file",
+    });
+  }
+};
+
+//ImageSizeReduce handler
+exports.imageSizeReducer = async (req, res) => {
+  try {
+    const { name, tags, email } = req.body;
+    console.log(name, tags, email);
+
+    const file = req.files.imageFile;
+    console.log("File check:", file);
+
+    //Validation
+    const supportedType = ["jpg", "jpeg", "png"];
+    const fileType = file.name.split(".")[1].toLowerCase();
+    if (!supportedType.includes(fileType)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "File format not supported" });
+    }
+
+    const response = await uploadFileToCloudinary(file, "CodePro", 90);
+    console.log("check response:", response);
+
+    //db me entry save karni hai
+    const fileData = await File.create({
+      name,
+      tags,
+      email,
+      imageUrl: response.secure_url,
+    });
+
+    res.json({
+      success: true,
+      message: "Image Uploaded Successfully",
+      imageUrl: response.secure_url,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "Error while resizing the image",
     });
   }
 };

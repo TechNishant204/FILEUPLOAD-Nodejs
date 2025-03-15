@@ -11,7 +11,12 @@ const PORT = process.env.PORT || 3000;
 //Middleware connect karna hai
 app.use(express.json());
 const fileupload = require("express-fileupload"); //middleware to upload file on server
-app.use(fileupload());
+app.use(
+  fileupload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
 
 // api route mount karana hai
 const Upload = require("./routes/FileUpload");
