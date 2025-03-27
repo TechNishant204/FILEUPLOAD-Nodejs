@@ -37,13 +37,13 @@ The project relies on the following npm packages:
 **nodemailer:** Module for sending emails.<br/>
 **dotenv:** Loads environment variables from a .env file.<br/>
 **fs (built-in):** Node.js filesystem module for local file operations.<br/>
-<br/>
+
 Install them with:
 
 ```
 npm install express express-fileupload cloudinary nodemailer dotenv
 ```
-<br/>
+
 ### Project Structure
 ```
 file-upload-project/
@@ -55,19 +55,21 @@ file-upload-project/
 ```
 
 ### Setup Instructions
-<br/>
-1. Clone the Repository<br/>
+
+1. Clone the Repository
 ```
 git clone https://github.com/yourusername/file-upload-project.git
 cd file-upload-project
 ```
-<br/>
+
 2. Install Dependencies
+   
 ```
 npm install
 ```
-<br/>
+
 3. Configure Environment Variables
+   
 Create a .env file in the root directory and add the following:
 ```
 PORT=3000
@@ -84,6 +86,7 @@ Email Credentials: Use a Gmail account with an App Password (if 2FA is enabled) 
 4. Set Up Cloudinary
    
 Install the Cloudinary SDK:
+
 ```
 npm install cloudinary
 ```
