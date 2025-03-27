@@ -13,35 +13,37 @@ This is a Node.js-based backend server that allows users to upload files (images
 This project is ideal for applications requiring file management, such as media galleries, content management systems, or user-generated content platforms.
 
 ### Features
-**File Upload**: Handles image and video uploads via express-fileupload.
-**Cloudinary Integration**: Stores uploaded files in the cloud with proper configuration.
-**Email Notifications**: Sends confirmation emails using nodemailer after successful uploads.
-**Image Size Reduction**: Reduces image file sizes to optimize storage and bandwidth.
-**Local Storage**: Saves files locally using the fs module with custom paths.
-**Environment Management**: Uses dotenv to securely manage API keys and secrets.
-
+**File Upload**: Handles image and video uploads via express-fileupload. <br/>
+**Cloudinary Integration**: Stores uploaded files in the cloud with proper configuration. <br/>
+**Email Notifications**: Sends confirmation emails using nodemailer after successful uploads.<br/>
+**Image Size Reduction**: Reduces image file sizes to optimize storage and bandwidth.<br/>
+**Local Storage**: Saves files locally using the fs module with custom paths.<br/>
+**Environment Management**: Uses dotenv to securely manage API keys and secrets.<br/>
+<br/>
 ### Prerequisites
 Before setting up the project, ensure you have:
 
-Node.js (v14.x or higher) and npm installed.
-A Cloudinary account (for cloud storage).
-A Gmail account or SMTP service (for nodemailer).
-MongoDB (optional, if you extend this to store metadata).
+Node.js (v14.x or higher) and npm installed.<br/>
+A Cloudinary account (for cloud storage).<br/>
+A Gmail account or SMTP service (for nodemailer).<br/>
+MongoDB (optional, if you extend this to store metadata).<br/>
 
 ### Dependencies
 The project relies on the following npm packages:
 
-**express:** Web framework for Node.js.
-**express-fileupload:** Middleware for handling file uploads.
-**cloudinary:** SDK for uploading files to Cloudinary.
-**nodemailer:** Module for sending emails.
-**dotenv:** Loads environment variables from a .env file.
-**fs (built-in):** Node.js filesystem module for local file operations.
+**express:** Web framework for Node.js.<br/>
+**express-fileupload:** Middleware for handling file uploads.<br/>
+**cloudinary:** SDK for uploading files to Cloudinary.<br/>
+**nodemailer:** Module for sending emails.<br/>
+**dotenv:** Loads environment variables from a .env file.<br/>
+**fs (built-in):** Node.js filesystem module for local file operations.<br/>
+<br/>
 Install them with:
 
 ```
 npm install express express-fileupload cloudinary nodemailer dotenv
 ```
+<br/>
 ### Project Structure
 ```
 file-upload-project/
@@ -53,17 +55,18 @@ file-upload-project/
 ```
 
 ### Setup Instructions
-1. Clone the Repository
+<br/>
+1. Clone the Repository<br/>
 ```
 git clone https://github.com/yourusername/file-upload-project.git
 cd file-upload-project
 ```
-
+<br/>
 2. Install Dependencies
 ```
 npm install
 ```
-
+<br/>
 3. Configure Environment Variables
 Create a .env file in the root directory and add the following:
 ```
@@ -87,10 +90,10 @@ npm install cloudinary
 
 ### Usage
 #### Upload an Image:
-Send a POST request to http://localhost:3000/upload/image with a file in the file field (e.g., via Postman or a frontend form).
-Response: { "url": "https://res.cloudinary.com/...", "msg": "Image uploaded successfully" }
-Email: User receives a confirmation with the Cloudinary URL.
+Send a POST request to http://localhost:3000/upload/image with a file in the file field (e.g., via Postman or a frontend form).<br/>
+Response: { "url": "https://res.cloudinary.com/...", "msg": "Image uploaded successfully" }<br/>
+Email: User receives a confirmation with the Cloudinary URL.<br/>
 Upload a Video:
-Send a POST request to http://localhost:3000/upload/video.
-Similar response and email notification.
-Local Storage: Files are temporarily stored in ./uploads/ before Cloudinary upload.
+Send a POST request to http://localhost:3000/upload/video.<br/>
+Similar response and email notification.<br/>
+Local Storage: Files are temporarily stored in ./uploads/ before Cloudinary upload.<br/>
