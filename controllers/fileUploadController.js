@@ -76,6 +76,7 @@ exports.imageUpload = async (req, res) => {
 
     //Validation
     const supportedType = ["jpg", "jpeg", "png"];
+    // here we are trying to find out the extension of the file so that we can check if the supported type match or not
     const fileType = file.name.split(".")[1].toLowerCase();
     if (!supportedType.includes(fileType)) {
       return res
@@ -83,6 +84,7 @@ exports.imageUpload = async (req, res) => {
         .json({ success: false, message: "File format not supported" });
     }
 
+    // calling the function to upload the file
     const response = await uploadFileToCloudinary(file, "CodePro");
 
     //db me entry save karni hai
@@ -119,6 +121,7 @@ exports.videoUpload = async (req, res) => {
 
     //Validation
     const supportedType = ["mp4", "mov"];
+     // here we are trying to find out the extension of the file so that we can check if the supported type match or not
     const fileType = file.name.split(".")[1].toLowerCase();
     console.log("check filetype:", fileType);
     if (!supportedType.includes(fileType)) {
@@ -164,6 +167,7 @@ exports.imageSizeReducer = async (req, res) => {
 
     //Validation
     const supportedType = ["jpg", "jpeg", "png"];
+     // here we are trying to find out the extension of the file so that we can check if the supported type match or not
     const fileType = file.name.split(".")[1].toLowerCase();
     if (!supportedType.includes(fileType)) {
       return res
@@ -171,7 +175,7 @@ exports.imageSizeReducer = async (req, res) => {
         .json({ success: false, message: "File format not supported" });
     }
 
-    const response = await uploadFileToCloudinary(file, "CodePro", 90);
+    const response = await uploadFileToCloudinary(file, "CodePro", 90); //90 is the size reducing attribute
     console.log("check response:", response);
 
     //db me entry save karni hai
